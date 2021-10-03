@@ -18,20 +18,20 @@ import br.com.unipix.api.dto.request.SMSRequest;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
 import br.com.unipix.api.fornecedor.EnviadorSMS;
-import br.com.unipix.api.service.ParametroFornecedorSMSService;
+import br.com.unipix.api.service.ParametroFornecedorService;
 
 @Component
 public class EnviadorSMSBestVoiceImpl implements EnviadorSMS {
 
 	@Autowired
-	private ParametroFornecedorSMSService parametroFornecedorSMSService;
+	private ParametroFornecedorService parametroFornecedorService;
 	
 	@Autowired
 	private ConversorSMSFactory converterSMSFactory;
 	
 	@Override
 	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException {
-		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
+		HashMap<String, String> chaves = parametroFornecedorService.findByfornecedorSMSID(fornecedorId);
 		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
 		String payload = conversorSMS.converterFormato(request, fornecedorId);
 		enviar(chaves, request, payload);

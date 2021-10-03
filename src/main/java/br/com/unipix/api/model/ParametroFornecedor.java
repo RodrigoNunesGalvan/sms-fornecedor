@@ -13,8 +13,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "FornecedorSMS", catalog = "SMSHub")
-public class FornecedorSMS implements Serializable {
+@Table(name = "tb_parametro_fornecedor", catalog = "SMSHub")
+public class ParametroFornecedor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,13 @@ public class FornecedorSMS implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "chave")
+	private String chave;
+
+	@Column(name = "valor")
+	private String valor;
+
+	@Column(name = "fornecedorSMSID")
+	private Integer fornecedorSMSID;
+
 }

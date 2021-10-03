@@ -18,13 +18,13 @@ import br.com.unipix.api.dto.request.SMSRequest;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
 import br.com.unipix.api.fornecedor.EnviadorSMS;
-import br.com.unipix.api.service.ParametroFornecedorSMSService;
+import br.com.unipix.api.service.ParametroFornecedorService;
 
 @Component
 public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 
 	@Autowired
-	private ParametroFornecedorSMSService parametroFornecedorSMSService;
+	private ParametroFornecedorService parametroFornecedorSMSService;
 	
 	@Autowired
 	private ConversorSMSFactory converterSMSFactory;
