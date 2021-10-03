@@ -16,20 +16,20 @@ import br.com.unipix.api.fornecedor.ConversorSMS;
 public class ConversorSMSZenviaImpl implements ConversorSMS {
 
 	@Override
-	public String converterFormato(List<SMSRequest> lista, String tipoFormatoRequisicao) throws JsonProcessingException {
+	public String converterFormato(List<SMSRequest> lista, Integer fornecedorId) throws JsonProcessingException {
 		StringBuilder payload = new StringBuilder();
 		if (lista.size() > 1) {
 			payload.append("{\"sendSmsMultiRequest\":{");
 			payload.append("\"sendSmsRequestList\":[");
 			for (SMSRequest sms : lista) {
-				payload.append(criarRequest(sms) + ",");
+				payload.append(criarRequest(sms, fornecedorId) + ",");
 			}
 			payload.replace(payload.length() - 1, payload.length(), "");
 			payload.append("]}}");
 		} else {
 			payload.append("{\"sendSmsRequest\":");
 			for (SMSRequest sms : lista) {
-				payload.append(criarRequest(sms) + ",");
+				payload.append(criarRequest(sms, fornecedorId) + ",");
 			}
 			payload.replace(payload.length() - 1, payload.length(), "");
 			payload.append("}");
@@ -37,13 +37,13 @@ public class ConversorSMSZenviaImpl implements ConversorSMS {
 		return payload.toString();
 	}
 
-	private String criarRequest(SMSRequest request) throws JsonProcessingException {
+	private String criarRequest(SMSRequest request, Integer fornecedorId) throws JsonProcessingException {
 		ZenviaRequest zenviaRequest = new ZenviaRequest();
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		zenviaRequest.setAggregateId(null);
 		zenviaRequest.setCallbackOption("ALL");
 		zenviaRequest.setDataCoding(null);
-		zenviaRequest.setFlashSms(false);
+		zenviaRequest.setFlashSms(fornecedorId == 1 ? false : true);
 		zenviaRequest.setFrom(null);
 		zenviaRequest.setId(request.getId());
 		zenviaRequest.setMsg(request.getMensagem());

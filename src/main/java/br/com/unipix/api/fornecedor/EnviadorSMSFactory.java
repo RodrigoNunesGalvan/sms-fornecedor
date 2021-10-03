@@ -18,9 +18,15 @@ public class EnviadorSMSFactory {
 	public EnviadorSMS obterFornecedor(Integer fornecedorID) {
 		switch (fornecedorID) {
 		case 1:
-			return enviadorSMSZenvia;
+			return enviadorSMSZenvia; // short
 		case 2:
-			return enviadorSMSBestVoice;
+			return enviadorSMSZenvia; // flash
+		case 3:
+			return enviadorSMSBestVoice; // short
+		case 4:
+			return enviadorSMSBestVoice; // short premium
+		case 5:
+			return enviadorSMSBestVoice; // long
 		default:
 			return null;
 		}

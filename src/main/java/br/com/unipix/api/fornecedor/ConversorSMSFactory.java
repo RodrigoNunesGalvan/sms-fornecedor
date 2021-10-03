@@ -21,6 +21,12 @@ public class ConversorSMSFactory {
 		case 1:
 			return converterSMSZenvia; 
 		case 2:
+			return converterSMSZenvia; 
+		case 3:
+			return converterSMSBestVoice; 
+		case 4:
+			return converterSMSBestVoice; 
+		case 5:
 			return converterSMSBestVoice; 
 		default:
 			return null;

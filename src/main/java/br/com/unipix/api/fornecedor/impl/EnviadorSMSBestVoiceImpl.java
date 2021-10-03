@@ -30,10 +30,10 @@ public class EnviadorSMSBestVoiceImpl implements EnviadorSMS {
 	private ConversorSMSFactory converterSMSFactory;
 	
 	@Override
-	public void prepararEnviar(List<SMSRequest> request) throws JsonProcessingException {
-		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(2);
-		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(2);
-		String payload = conversorSMS.converterFormato(request, "json");
+	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException {
+		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
+		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
+		String payload = conversorSMS.converterFormato(request, fornecedorId);
 		enviar(chaves, request, payload);
 	}
 	
@@ -46,8 +46,8 @@ public class EnviadorSMSBestVoiceImpl implements EnviadorSMS {
 	}
 	
 	private void enviar(HashMap<String, String> chaves, List<SMSRequest> lista, String payload) {
-		String usuario = chaves.get("usuarioShort");
-		String senha = chaves.get("senhaShort");
+		String usuario = chaves.get("usuario");
+		String senha = chaves.get("senha");
 		String urlfornecedorSMS = obterEndPointEnvio(chaves, lista.size());
 		
 		RestTemplate rest = new RestTemplate();

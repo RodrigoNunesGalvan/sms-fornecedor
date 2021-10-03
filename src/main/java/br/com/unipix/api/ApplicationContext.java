@@ -38,8 +38,8 @@ public class ApplicationContext implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		List<SMSRequest> lista = obterListaSMS();
-		EnviadorSMS enviador = enviadorSMSFactory.obterFornecedor(2);
-		enviador.prepararEnviar(lista);
+		EnviadorSMS enviador = enviadorSMSFactory.obterFornecedor(5);
+		enviador.prepararEnviar(lista,5);
 	}
 	
 	private List<SMSRequest> obterListaSMS() {
@@ -47,8 +47,8 @@ public class ApplicationContext implements CommandLineRunner {
 		SMSRequest sms = new SMSRequest();
 		UUID uuid = UUID.randomUUID();
 		sms.setId(uuid.toString());
-		sms.setMensagem("Teste de Envio SMS, cade o kafka");
-		sms.setNumero("557391412560");
+		sms.setMensagem("Teste de Envio SMS long");
+		sms.setNumero("5511978340707");
 		lista.add(sms);
 //		sms = new SMSRequest();
 //		uuid = UUID.randomUUID();

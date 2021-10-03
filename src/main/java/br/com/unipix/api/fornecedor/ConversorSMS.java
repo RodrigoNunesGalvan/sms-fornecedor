@@ -11,6 +11,6 @@ import br.com.unipix.api.dto.request.SMSRequest;
 @Component
 public interface ConversorSMS {
 
-	public String converterFormato(List<SMSRequest> lista, String tipoFormatoRequisicao) throws JsonProcessingException;
+	public String converterFormato(List<SMSRequest> lista, Integer fornecedorId) throws JsonProcessingException;
 
 }

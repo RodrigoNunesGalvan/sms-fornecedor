@@ -30,10 +30,10 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 	private ConversorSMSFactory converterSMSFactory;
 	
 	@Override
-	public void prepararEnviar(List<SMSRequest> request) throws JsonProcessingException {
-		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(1);
-		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(1);
-		String payload = conversorSMS.converterFormato(request, "json");
+	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException {
+		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
+		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
+		String payload = conversorSMS.converterFormato(request, fornecedorId);
 		enviar(chaves, request, payload);
 	}
 	
