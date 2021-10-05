@@ -17,18 +17,9 @@
 
 	<properties>
 		<java.version>8</java.version>
-		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
 	</properties>
 
 	<dependencies>
-		<!--****************************************************************** -->
-		<!--******* eureka-client - Discovery client ************************* -->
-		<!--******* habilita discovery client ******************************** -->
-		<!--****************************************************************** -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
 		<dependency>
   			 <groupId>org.apache.commons</groupId>
   			 <artifactId>commons-lang3</artifactId>
@@ -133,18 +124,6 @@
 <!-- 			<artifactId>flyway-core</artifactId> -->
 <!-- 		</dependency> -->
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<finalName>backend_bi</finalName>

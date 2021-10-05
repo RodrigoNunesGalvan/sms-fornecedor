@@ -45,7 +45,7 @@ public class ConversorSMSZenviaImpl implements ConversorSMS {
 		zenviaRequest.setDataCoding(null);
 		zenviaRequest.setFlashSms(fornecedorId == 1 ? false : true);
 		zenviaRequest.setFrom(null);
-		zenviaRequest.setId(request.getId());
+		zenviaRequest.setId(request.getSmsId());
 		zenviaRequest.setMsg(request.getMensagem());
 		zenviaRequest.setSchedule(null);
 		zenviaRequest.setTo(request.getNumero());

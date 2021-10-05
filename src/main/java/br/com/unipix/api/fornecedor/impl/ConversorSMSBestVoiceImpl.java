@@ -34,7 +34,7 @@ public class ConversorSMSBestVoiceImpl implements ConversorSMS {
 	private String criarRequest(SMSRequest request) throws JsonProcessingException {
 		BestVoiceRequest bestVoiceRequest = new BestVoiceRequest();
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		bestVoiceRequest.setParceiroId(request.getId());
+		bestVoiceRequest.setParceiroId(request.getSmsId());
 		bestVoiceRequest.setMensagem(request.getMensagem());
 		bestVoiceRequest.setCelular(request.getNumero());
 		String json = ow.writeValueAsString(bestVoiceRequest);
