@@ -5,9 +5,11 @@ import lombok.Data;
 @Data
 public class SMSRequest {
 
-	private Integer produtoId;
-	private Integer fornecedorId;
+	private Long produtoId;
+	private Long campanhaId;
 	private String smsId;
 	private String numero;
 	private String mensagem;
+	private Long rotaId;
+	private Long fornecedorId;
 }

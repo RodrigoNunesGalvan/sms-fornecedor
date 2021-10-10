@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_fornecedor", catalog = "SMSHub")
+@Table(name = "tb_fornecedor", catalog = "unipix")
 public class Fornecedor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +21,7 @@ public class Fornecedor implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 
 	@Column(name = "nome")
 	private String nome;

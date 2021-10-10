@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.service.ReceberSMSService;
+import br.com.unipix.api.service.EnviarSMSService;
 
 @CrossOrigin
 @RestController
-public class ReceberSMSController {
+public class EnviarSMSController {
 
 	@Autowired
-	private ReceberSMSService receberSMSService;
+	private EnviarSMSService service;
 	
 	@PostMapping(value = "/enviar")
 	public void receberSMS(@RequestBody SMSRequest request) throws JsonProcessingException {
-		receberSMSService.enviarSMS(request);
+		service.enviarSMS(request);
 	}
 
 }

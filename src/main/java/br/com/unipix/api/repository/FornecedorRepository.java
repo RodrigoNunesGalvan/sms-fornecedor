@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.unipix.api.model.Fornecedor;
 
 @Repository
-public interface FornecedorRepository extends JpaRepository<Fornecedor, Integer> {
+public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
 
 }

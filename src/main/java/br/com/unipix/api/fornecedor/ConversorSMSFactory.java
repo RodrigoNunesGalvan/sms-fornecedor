@@ -15,9 +15,9 @@ public class ConversorSMSFactory {
 	@Autowired
 	private ConversorSMSBestVoiceImpl converterSMSBestVoice;
 
-	public ConversorSMS getConversorFornecedor(Integer fornecedorId) {
+	public ConversorSMS getConversorFornecedor(Long fornecedorId) {
 
-		switch (fornecedorId) {
+		switch (fornecedorId.intValue()) {
 		case 1:
 			return converterSMSZenvia; 
 		case 2:

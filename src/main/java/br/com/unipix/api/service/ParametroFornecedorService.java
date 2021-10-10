@@ -15,7 +15,7 @@ public class ParametroFornecedorService {
 	@Autowired
 	private ParametroFornecedorRepository repositoryParametroFornecedorSMS;
 
-	public HashMap<String,String> findByfornecedorSMSID(Integer fornecedorSMSID) {
+	public HashMap<String,String> findByfornecedorSMSID(Long fornecedorSMSID) {
 		HashMap<String,String> chaves = new HashMap<>();
 		List<ParametroFornecedor> parametros = repositoryParametroFornecedorSMS.findByfornecedorSMSID(fornecedorSMSID);
 		for (ParametroFornecedor fornecedorSMSParam : parametros) {

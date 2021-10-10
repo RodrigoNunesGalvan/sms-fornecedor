@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.com.unipix.api.model.ParametroFornecedor;
 
-public interface ParametroFornecedorRepository extends JpaRepository<ParametroFornecedor, Integer> {
+public interface ParametroFornecedorRepository extends JpaRepository<ParametroFornecedor, Long> {
 
 	@Query("select f from ParametroFornecedor f where f.fornecedorSMSID = ?1")
-	public List<ParametroFornecedor> findByfornecedorSMSID(Integer fornecedorSMSID);
+	public List<ParametroFornecedor> findByfornecedorSMSID(Long fornecedorSMSID);
 }

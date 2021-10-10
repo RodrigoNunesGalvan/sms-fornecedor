@@ -30,7 +30,7 @@ public class EnviadorSMSBestVoiceImpl implements EnviadorSMS {
 	private ConversorSMSFactory converterSMSFactory;
 	
 	@Override
-	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException {
+	public void prepararEnviar(List<SMSRequest> request, Long fornecedorId) throws JsonProcessingException {
 		HashMap<String, String> chaves = parametroFornecedorService.findByfornecedorSMSID(fornecedorId);
 		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
 		String payload = conversorSMS.converterFormato(request, fornecedorId);

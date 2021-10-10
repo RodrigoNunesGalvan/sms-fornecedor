@@ -11,7 +11,7 @@ import br.com.unipix.api.dto.request.SMSRequest;
 @Component
 public interface EnviadorSMS {
 
-	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException;
+	public void prepararEnviar(List<SMSRequest> request, Long fornecedorId) throws JsonProcessingException;
 
 }
 

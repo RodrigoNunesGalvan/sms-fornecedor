@@ -16,7 +16,7 @@ import br.com.unipix.api.fornecedor.ConversorSMS;
 public class ConversorSMSZenviaImpl implements ConversorSMS {
 
 	@Override
-	public String converterFormato(List<SMSRequest> lista, Integer fornecedorId) throws JsonProcessingException {
+	public String converterFormato(List<SMSRequest> lista, Long fornecedorId) throws JsonProcessingException {
 		StringBuilder payload = new StringBuilder();
 		if (lista.size() > 1) {
 			payload.append("{\"sendSmsMultiRequest\":{");
@@ -37,7 +37,7 @@ public class ConversorSMSZenviaImpl implements ConversorSMS {
 		return payload.toString();
 	}
 
-	private String criarRequest(SMSRequest request, Integer fornecedorId) throws JsonProcessingException {
+	private String criarRequest(SMSRequest request, Long fornecedorId) throws JsonProcessingException {
 		ZenviaRequest zenviaRequest = new ZenviaRequest();
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		zenviaRequest.setAggregateId(null);

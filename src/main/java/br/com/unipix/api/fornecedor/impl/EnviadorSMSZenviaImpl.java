@@ -1,5 +1,7 @@
 package br.com.unipix.api.fornecedor.impl;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,14 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import br.com.unipix.api.dto.request.SMSRequest;
+import br.com.unipix.api.dto.response.SMSZenviaResponse;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
 import br.com.unipix.api.fornecedor.EnviadorSMS;
@@ -28,13 +35,18 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 	
 	@Autowired
 	private ConversorSMSFactory converterSMSFactory;
-	
+
+	@Autowired
+	private Gson jsonConverter;
+
 	@Override
-	public void prepararEnviar(List<SMSRequest> request, Integer fornecedorId) throws JsonProcessingException {
+	public void prepararEnviar(List<SMSRequest> request, Long fornecedorId) throws JsonProcessingException {
 		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
 		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
 		String payload = conversorSMS.converterFormato(request, fornecedorId);
-		enviar(chaves, request, payload);
+		String response = enviar(chaves, request, payload);
+		List<SMSZenviaResponse> retornos = obterRetornoEnvioFornecedor(response, request.size());
+		System.out.println(retornos);
 	}
 	
 	private String obterEndPointEnvio(HashMap<String, String> chaves, Integer quantidadeMensagens) {
@@ -45,7 +57,25 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 		}
 	}
 	
-	private void enviar(HashMap<String, String> chaves, List<SMSRequest> lista, String payload) {
+	private List<SMSZenviaResponse> obterRetornoEnvioFornecedor(String response, Integer quantidadeSMS) {
+		List<SMSZenviaResponse> smsZenviaResponses = new ArrayList<>();
+		JsonObject jsonObject = new Gson().fromJson(response, JsonObject.class);
+		if (quantidadeSMS == 1) {
+			JsonElement jsonElement = jsonObject.get("sendSmsResponse");
+			String element = jsonElement.toString();
+			SMSZenviaResponse smsZenviaResponse = jsonConverter.fromJson(element, SMSZenviaResponse.class);  
+			smsZenviaResponses.add(smsZenviaResponse);
+		} else {
+			JsonElement jsonElement = jsonObject.get("sendSmsMultiResponse");
+			JsonObject element = jsonElement.getAsJsonObject();
+			JsonArray list = element.getAsJsonArray("sendSmsResponseList");
+			Type userListType = new TypeToken<ArrayList<SMSZenviaResponse>>(){}.getType();
+			smsZenviaResponses = jsonConverter.fromJson(list, userListType);  
+		}
+		return smsZenviaResponses;
+	}
+	
+	private String enviar(HashMap<String, String> chaves, List<SMSRequest> lista, String payload) {
 		String token = chaves.get("tokenShort");
 		String urlfornecedorSMS = obterEndPointEnvio(chaves, lista.size());
 		RestTemplate rest = new RestTemplate();
@@ -55,10 +85,6 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
     	headers.add("Authorization", "Basic " + token);
     	HttpEntity<?> request = new HttpEntity<Object>(payload, headers);
     	ResponseEntity<String> response = rest.exchange(urlfornecedorSMS, HttpMethod.POST, request, String.class);
-		if (response.getStatusCode() == HttpStatus.OK) {
-			//enviarListaSucesso(lista);
-		} else {
-			//enviarListaFalha(lista);
-		}
+    	return response.getBody();
 	}
 }

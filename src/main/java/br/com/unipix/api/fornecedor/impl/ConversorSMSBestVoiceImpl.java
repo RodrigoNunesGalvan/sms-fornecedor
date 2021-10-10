@@ -16,7 +16,7 @@ import br.com.unipix.api.fornecedor.ConversorSMS;
 public class ConversorSMSBestVoiceImpl implements ConversorSMS {
 
 	@Override
-	public String converterFormato(List<SMSRequest> lista, Integer fornecedorId) throws JsonProcessingException {
+	public String converterFormato(List<SMSRequest> lista, Long fornecedorId) throws JsonProcessingException {
 		StringBuilder payload = new StringBuilder();
 		if (lista.size() > 1) {
 			payload.append("{\"bulk\":[");

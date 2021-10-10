@@ -15,8 +15,8 @@ public class EnviadorSMSFactory {
 	@Autowired
 	private EnviadorSMSBestVoiceImpl enviadorSMSBestVoice;
 
-	public EnviadorSMS obterFornecedor(Integer fornecedorID) {
-		switch (fornecedorID) {
+	public EnviadorSMS obterFornecedor(Long fornecedorID) {
+		switch (fornecedorID.intValue()) {
 		case 1:
 			return enviadorSMSZenvia; // short
 		case 2:

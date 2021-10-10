@@ -13,7 +13,7 @@ import br.com.unipix.api.fornecedor.EnviadorSMS;
 import br.com.unipix.api.fornecedor.EnviadorSMSFactory;
 
 @Service
-public class ReceberSMSService {
+public class EnviarSMSService {
 	
 	@Autowired
 	private EnviadorSMSFactory enviadorSMSFactory;
