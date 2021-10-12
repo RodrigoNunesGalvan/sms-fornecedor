@@ -3,7 +3,7 @@ package br.com.unipix.api.dto.request;
 import lombok.Data;
 
 @Data
-public class SMSRequest {
+public class SMSResponse {
 
 	private String smsId;
 	private String numero;
@@ -12,7 +12,6 @@ public class SMSRequest {
 	private Long produtoId;
 	private Long rotaId;
 	private Long fornecedorId;
-    private String statusCode;
-    private String statusDescription;
-    private String detailDescription;
+    private String status;
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
+import br.com.unipix.api.dto.request.SMSResponse;
 import br.com.unipix.api.fornecedor.EnviadorSMS;
 import br.com.unipix.api.fornecedor.EnviadorSMSFactory;
 
@@ -18,10 +19,10 @@ public class EnviarSMSService {
 	@Autowired
 	private EnviadorSMSFactory enviadorSMSFactory;
 
-	public void enviarSMS(SMSRequest sms) throws JsonProcessingException {
+	public List<SMSResponse> enviarSMS(SMSRequest sms) throws JsonProcessingException {
 		List<SMSRequest> request = new ArrayList<>();
 		request.add(sms);
 		EnviadorSMS enviador = enviadorSMSFactory.obterFornecedor(sms.getFornecedorId());
-		enviador.prepararEnviar(request, sms.getFornecedorId());
+		return enviador.prepararEnviar(request, sms.getFornecedorId());
 	}
 }

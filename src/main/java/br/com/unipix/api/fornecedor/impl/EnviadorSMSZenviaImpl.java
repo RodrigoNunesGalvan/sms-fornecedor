@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import br.com.unipix.api.dto.request.SMSRequest;
+import br.com.unipix.api.dto.request.SMSResponse;
 import br.com.unipix.api.dto.response.SMSZenviaResponse;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
@@ -40,13 +42,33 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 	private Gson jsonConverter;
 
 	@Override
-	public void prepararEnviar(List<SMSRequest> request, Long fornecedorId) throws JsonProcessingException {
+	public List<SMSResponse> prepararEnviar(List<SMSRequest> request, Long fornecedorId) throws JsonProcessingException {
 		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
 		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
 		String payload = conversorSMS.converterFormato(request, fornecedorId);
 		String response = enviar(chaves, request, payload);
 		List<SMSZenviaResponse> retornos = obterRetornoEnvioFornecedor(response, request.size());
-		System.out.println(retornos);
+		return obterStatusEnvio(retornos, request);
+	}
+	
+	private List<SMSResponse> obterStatusEnvio(List<SMSZenviaResponse>  retornos, List<SMSRequest> request) {
+		int index = 0;
+		List<SMSResponse> responses = new ArrayList<>();
+		for (SMSZenviaResponse smsZenviaResponse : retornos) {
+			SMSResponse smsResponse = new SMSResponse();
+			SMSRequest smsRequest = request.get(index);
+			smsRequest.setStatusCode(smsZenviaResponse.getStatusCode());
+			smsRequest.setStatusDescription(smsZenviaResponse.getStatusDescription());
+			smsRequest.setDetailDescription(smsZenviaResponse.getDetailDescription());
+			request.set(index, smsRequest);
+			BeanUtils.copyProperties(smsRequest, smsResponse);
+			smsResponse.setStatus("nao_enviado");
+			if (smsZenviaResponse.getStatusCode().equals("00") || smsZenviaResponse.getStatusCode().equals("01")) {
+				smsResponse.setStatus("enviado");
+			}
+			responses.add(smsResponse);
+		}
+		return responses;
 	}
 	
 	private String obterEndPointEnvio(HashMap<String, String> chaves, Integer quantidadeMensagens) {
