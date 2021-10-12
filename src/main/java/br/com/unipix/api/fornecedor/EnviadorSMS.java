@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.dto.request.SMSResponse;
+import br.com.unipix.api.dto.response.SMSResponse;
 
 @Component
 public interface EnviadorSMS {

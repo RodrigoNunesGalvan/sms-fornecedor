@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.dto.request.SMSResponse;
+import br.com.unipix.api.dto.response.SMSResponse;
 import br.com.unipix.api.fornecedor.EnviadorSMS;
 import br.com.unipix.api.fornecedor.EnviadorSMSFactory;
 

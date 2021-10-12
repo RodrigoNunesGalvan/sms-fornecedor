@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.dto.request.SMSResponse;
+import br.com.unipix.api.dto.response.SMSResponse;
 import br.com.unipix.api.dto.response.SMSZenviaResponse;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
@@ -59,7 +59,7 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 			SMSRequest smsRequest = request.get(index);
 			smsRequest.setStatusCode(smsZenviaResponse.getStatusCode());
 			smsRequest.setStatusDescription(smsZenviaResponse.getStatusDescription());
-			smsRequest.setDetailDescription(smsZenviaResponse.getDetailDescription());
+			smsRequest.setMensagemFornecedor(smsZenviaResponse.getDetailDescription());
 			request.set(index, smsRequest);
 			BeanUtils.copyProperties(smsRequest, smsResponse);
 			smsResponse.setStatus("nao_enviado");

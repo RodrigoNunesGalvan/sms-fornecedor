@@ -14,5 +14,5 @@ public class SMSRequest {
 	private Long fornecedorId;
     private String statusCode;
     private String statusDescription;
-    private String detailDescription;
+    private String mensagemFornecedor;
 }

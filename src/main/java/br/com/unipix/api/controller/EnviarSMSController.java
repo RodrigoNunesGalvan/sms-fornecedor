@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.dto.request.SMSResponse;
+import br.com.unipix.api.dto.response.SMSResponse;
 import br.com.unipix.api.service.EnviarSMSService;
 
 @CrossOrigin

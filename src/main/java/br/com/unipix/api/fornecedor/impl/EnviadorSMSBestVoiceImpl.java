@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.unipix.api.dto.request.SMSRequest;
-import br.com.unipix.api.dto.request.SMSResponse;
 import br.com.unipix.api.dto.response.SMSBestVoiceResponse;
+import br.com.unipix.api.dto.response.SMSResponse;
 import br.com.unipix.api.fornecedor.ConversorSMS;
 import br.com.unipix.api.fornecedor.ConversorSMSFactory;
 import br.com.unipix.api.fornecedor.EnviadorSMS;

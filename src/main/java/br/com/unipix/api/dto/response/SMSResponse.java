@@ -1,4 +1,4 @@
-package br.com.unipix.api.dto.request;
+package br.com.unipix.api.dto.response;
 
 import lombok.Data;
 
@@ -12,6 +12,7 @@ public class SMSResponse {
 	private Long produtoId;
 	private Long rotaId;
 	private Long fornecedorId;
+    private String mensagemFornecedor;
     private String status;
 
 }
