@@ -46,12 +46,30 @@ public class EnviadorSMSZenviaImpl implements EnviadorSMS {
 		HashMap<String, String> chaves = parametroFornecedorSMSService.findByfornecedorSMSID(fornecedorId);
 		ConversorSMS conversorSMS = converterSMSFactory.getConversorFornecedor(fornecedorId);
 		String payload = conversorSMS.converterFormato(request, fornecedorId);
-		String response = enviar(chaves, request, payload);
-		List<SMSZenviaResponse> retornos = obterRetornoEnvioFornecedor(response, request.size());
-		return obterStatusEnvio(retornos, request);
+		try {
+			String response = enviar(chaves, request, payload);
+			List<SMSZenviaResponse> retornos = obterRetornoEnvioFornecedor(response, request.size());
+			List<SMSResponse> responses = definirStatusEnvio(retornos, request);
+			return responses;
+		} catch (Exception e) {
+			List<SMSResponse> responses = definirStatusErroEnvio(request);
+			return responses;
+		}
 	}
 	
-	private List<SMSResponse> obterStatusEnvio(List<SMSZenviaResponse>  retornos, List<SMSRequest> request) {
+	private List<SMSResponse> definirStatusErroEnvio(List<SMSRequest> request) {
+		List<SMSResponse> responses = new ArrayList<>();
+		for (SMSRequest smsRequest : request) {
+			SMSResponse smsResponse = new SMSResponse();
+			BeanUtils.copyProperties(smsRequest, smsResponse);
+			smsResponse.setStatus("nao_enviado");
+			smsResponse.setMensagemFornecedor("401 Unauthorized");
+			responses.add(smsResponse);
+		}
+		return responses;
+	}
+
+	private List<SMSResponse> definirStatusEnvio(List<SMSZenviaResponse>  retornos, List<SMSRequest> request) {
 		int index = 0;
 		List<SMSResponse> responses = new ArrayList<>();
 		for (SMSZenviaResponse smsZenviaResponse : retornos) {
