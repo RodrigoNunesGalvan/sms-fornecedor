@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+//@EnableEurekaClient 
 @SpringBootApplication
 public class ApplicationContext {
 
