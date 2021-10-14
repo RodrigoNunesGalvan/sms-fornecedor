@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh ' docker stop sms-fornecedor' 
                 sh ' docker rm sms-fornecedor'
-                sh ' docker container run --network intranet -h sms-fornecedor -d --name sms-fornecedor -p 8084:8084 vonex/sms_fornecedor:${BUILD_NUMBER}'
+                sh ' docker container run --network=host -d --name sms-fornecedor -p 8084:8084 vonex/sms_fornecedor:${BUILD_NUMBER}'
             }
         }        
     }
