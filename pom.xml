@@ -10,9 +10,9 @@
 		<relativePath /> 
 	</parent>
 	<groupId>br.com.unipix-api</groupId>
-	<artifactId>unipix-api-fornecedor</artifactId>
+	<artifactId>sms-fornecedor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>unipix-api-fornecedor</name>
+	<name>sms-fornecedor</name>
 	<description>API para Gerenciamento dos SMS</description>
 
 	<properties>
@@ -135,7 +135,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>backend_bi</finalName>
+		<!--<finalName>backend_bi</finalName>-->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
