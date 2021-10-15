@@ -4,7 +4,7 @@ ENV TZ='GMT-3'
 
 VOLUME /tmp
 
-EXPOSE 8084
+EXPOSE 8085
 
 ARG JAR_FILE=target/*.jar
 
